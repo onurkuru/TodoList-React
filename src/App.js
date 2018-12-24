@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import {TodoList} from './todoList';
+import {TodoForm} from './todoForm';
+import {Header} from './inc/header';
+import {Footer} from './inc/footer';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {myTasks: [
+    "Yapılacak ilk iş",
+    "film izle",
+    "makarna yap",
+    "elma soy"
+    ]};
+    this.addTask = this.addTask.bind(this);
+  }
+
+  addTask(val){
+    let updatedList = this.state.myTasks;
+    updatedList.push(val);  
+    this.setState({myTasks: updatedList});
+  }
   render() {
+  
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="content">
+        <Header />
+        <TodoForm addTask={this.addTask}/>
+        <TodoList myTasks={this.state.myTasks} />
+        <Footer />
       </div>
     );
   }
